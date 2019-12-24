@@ -2,6 +2,7 @@ package com.example.abc.ui.main
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,19 @@ import com.example.wather.R
 import com.example.wather.viewmodel.CityListViewModel
 import android.widget.SearchView
 import androidx.lifecycle.Observer
+import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.ResultResponse
 import com.example.wather.fragments.CitySearchFragment
+import com.example.wather.room.AppDatabase
+import com.example.wather.room.CityDao
+import com.example.wather.room.CityTable
 import com.example.wather.utils.AppConstant
 import com.example.wather.utils.ResponseMaper
 
 
 class MainFragment : Fragment() {
+    private var mCityDao: CityDao? = null
+    private var mDb: AppDatabase? = null
 
     companion object {
         fun newInstance() = MainFragment()
@@ -54,6 +61,10 @@ class MainFragment : Fragment() {
 
 
 
+        mDb = AppDatabase.getAppDataBase(context!!)
+        mCityDao = mDb?.cityDao()
+        var cityTableItem = mCityDao?.getAll()
+        Log.d("abc","aaaaa"+cityTableItem)
         return fragmentmainBinding.root
     }
 

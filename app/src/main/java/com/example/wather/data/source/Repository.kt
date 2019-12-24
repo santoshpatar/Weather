@@ -2,6 +2,7 @@ package com.example.wather.data.source
 
 
 import com.example.wather.data.source.remote.RemoteDataSource
+import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.ResultResponse
 import com.example.wather.data.source.remote.model.WeatherData
 import com.example.wather.data.source.remote.model.WeatherResponse
@@ -50,5 +51,21 @@ object Repository : IRepository {
                 }
             })
 
+    }
+
+   // get data from Local DB
+
+    override fun getVisitedCity(callback: IDataSource.LoadDataCallback<ArrayList<City>>) {
+        localDataSource?.getVisitedCity(
+            object : IDataSource.LoadDataCallback<ArrayList<City>> {
+
+                override fun onDataLoaded(data: ArrayList<City>) {
+                    callback.onDataLoaded(data)
+                }
+
+                override fun onDataNotAvailable(t: Throwable) {
+                    callback.onDataNotAvailable(t)
+                }
+            })
     }
 }

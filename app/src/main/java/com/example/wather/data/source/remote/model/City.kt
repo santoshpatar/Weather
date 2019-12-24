@@ -2,9 +2,10 @@ package com.example.wather.data.source.remote.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
 
-class City() :Parcelable{
 
+class  City() : Parcelable {
     var areaName: String = "NA"
     var country: String = "NA"
 
@@ -15,6 +16,7 @@ class City() :Parcelable{
     var region: String = "NA"
 
     var weatherUrl: String = "NA"
+    var timeStamp: Long = 0
 
     constructor(parcel: Parcel) : this() {
         areaName = parcel.readString()
@@ -24,6 +26,7 @@ class City() :Parcelable{
         population = parcel.readString()
         region = parcel.readString()
         weatherUrl = parcel.readString()
+        timeStamp = parcel.readLong()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -34,6 +37,7 @@ class City() :Parcelable{
         parcel.writeString(population)
         parcel.writeString(region)
         parcel.writeString(weatherUrl)
+        parcel.writeLong(timeStamp)
     }
 
     override fun describeContents(): Int {
@@ -49,6 +53,5 @@ class City() :Parcelable{
             return arrayOfNulls(size)
         }
     }
-
 
 }

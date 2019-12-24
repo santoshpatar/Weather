@@ -13,6 +13,8 @@ import com.example.wather.R
 import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.WeatherData
 import com.example.wather.databinding.FragmentWeatherBinding
+import com.example.wather.room.AppDatabase
+import com.example.wather.room.CityDao
 import com.example.wather.utils.AppConstant
 import com.example.wather.viewmodel.CitySearchFragmentViewModel
 import com.example.wather.viewmodel.WeatherViewModel
@@ -23,6 +25,9 @@ class WeatherFragment :Fragment(){
     // private lateinit var citySearchBinding: com.example.musictest.databinding.FragmentCitySearchBinding
     private lateinit var fragmentWeatherBinding: FragmentWeatherBinding;
     private lateinit var mWeatherViewModel: WeatherViewModel
+    private var mDb: AppDatabase? = null
+    private var mCityDao: CityDao ? = null
+    private var mCity: City ? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +42,12 @@ class WeatherFragment :Fragment(){
 
         var city:City = arguments!!.getParcelable("SELECTED_CITY")
         mWeatherViewModel.getWeatherData(getWeatherRequest(city))
-
+        mDb = AppDatabase.getAppDataBase(context!!)
+//        mDb = context?.let {
+//            AppDatabase.getAppDataBase(it)
+//        }
+        mCityDao = mDb?.cityDao()
+        mWeatherViewModel.insertCity(mCityDao!!,city)
         return fragmentWeatherBinding.root
     }
 
