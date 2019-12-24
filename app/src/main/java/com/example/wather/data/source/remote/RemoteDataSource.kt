@@ -6,6 +6,8 @@ import com.example.wather.data.source.IDataSource
 import com.example.wather.data.source.remote.model.ResultResponse
 import com.example.wather.data.source.remote.model.WeatherData
 import com.example.wather.data.source.remote.model.WeatherResponse
+import com.example.wather.utils.ResponseMaper
+import com.example.wather.utils.Utils
 import com.google.gson.Gson
 
 
@@ -69,7 +71,8 @@ object RemoteDataSource : IRemoteDataSource {
                         ()))
 
                 if (response.isSuccessful && response.body() != null) {
-                    callback.onDataLoaded(response.body() as  WeatherData)
+                    var weatherData = ResponseMaper.getWeather(response.body() as WeatherResponse)
+                    callback.onDataLoaded(weatherData)
                 } else {
                     onFailure(call, Throwable("Error", IOException("Response Error")))
                 }

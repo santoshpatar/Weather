@@ -45,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:text="7.7"
                 android:layout_marginLeft="5dp"
+                android:id="@+id/temperature"
                 android:layout_toRightOf="@+id/temperature_label"
                 android:textStyle="normal"
                 android:layout_height="wrap_content"/>
