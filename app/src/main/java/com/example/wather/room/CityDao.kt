@@ -20,8 +20,9 @@ interface  CityDao{
 //    @Query("SELECT * FROM city_item")
 //    fun getAll(): List<CityTable>
 
-    @Query("SELECT * FROM city_item")
+    @Query("SELECT * FROM city_item ORDER BY timeStamp DESC")
     fun loadAllUsers(): Array<CityTable>
+    
 
 //    @Insert
 //    fun insertAll(citylist: List<CityTable>)

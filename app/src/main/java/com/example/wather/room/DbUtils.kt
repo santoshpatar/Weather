@@ -2,6 +2,7 @@ package com.example.wather.room
 
 import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.ResultResponse
+import java.util.*
 
 class DbUtils {
     companion object {
@@ -13,6 +14,7 @@ class DbUtils {
             cityTable.latitude = city.latitude
             cityTable.longitude = city.longitude
             cityTable.region = city.region
+            cityTable.timeStamp = System.currentTimeMillis()
             return cityTable;
 
         }

@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.ResultResponse
 import com.example.wather.fragments.CitySearchFragment
+import com.example.wather.fragments.WeatherFragment
 import com.example.wather.room.AppDatabase
 import com.example.wather.room.CityDao
 import com.example.wather.room.CityTable
@@ -46,7 +47,7 @@ class MainFragment : Fragment() {
             R.layout.fragment_main, container, false
         )
         fragmentmainBinding.listviewmodel = mCityListViewModel
-
+        fragmentmainBinding.recyclerView.adapter = mCityListViewModel.cityListAdapter
 
         fragmentmainBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
@@ -88,6 +89,16 @@ class MainFragment : Fragment() {
             openSearchResultFragment(it)
         })
 
+        mCityListViewModel.getVisitedCityResult().observe(this, Observer {
+            if(it!= null){
+                mCityListViewModel.loadVisitedCity(it)
+            }
+        })
+
+        mCityListViewModel.getClickCity().observe(this, Observer {
+            openWeatherFragment(it)
+        })
+
     }
 
 
@@ -112,5 +123,16 @@ class MainFragment : Fragment() {
         activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container, citySearchFragment)?.addToBackStack(null)?.commit()
         mCityListViewModel.setSearchResult()
     }
+
+    private fun openWeatherFragment(city: City){
+        fragmentManager?.popBackStack();
+        var weatherFragment = WeatherFragment()
+        var bundle = Bundle()
+        bundle.putParcelable("SELECTED_CITY", city)
+        weatherFragment.arguments = bundle
+        activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container, weatherFragment)?.addToBackStack(null)?.commit()
+
+    }
+
 
 }

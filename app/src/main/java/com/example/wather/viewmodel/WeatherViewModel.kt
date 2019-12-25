@@ -43,7 +43,13 @@ class WeatherViewModel :ViewModel(){
 
     fun insertCity(cityDao: CityDao,city: City){
         doAsync {
-        cityDao.insert(DbUtils.getCityTableItemFromCity(city))
+            var _city = cityDao.findCityByLatitude(city.latitude,city.longitude)
+            if(_city!= null){
+                cityDao.updateCity(DbUtils.getCityTableItemFromCity(city))
+            }else{
+                cityDao.insert(DbUtils.getCityTableItemFromCity(city))
+            }
+
         }
 
     }

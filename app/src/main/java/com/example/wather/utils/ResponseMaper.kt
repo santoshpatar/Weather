@@ -59,6 +59,7 @@ class ResponseMaper {
                 cityResponse.region = items?.region
                 cityResponse.latitude = items?.latitude
                 cityResponse.longitude = items.longitude
+                cityResponse.timeStamp = items.timeStamp
                 //cityResponse.population = item.p
                 cityList.add(cityResponse)
             }

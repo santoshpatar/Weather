@@ -10,6 +10,7 @@ import com.example.wather.room.CityTable
 import com.example.wather.utils.ResponseMaper
 import com.google.gson.Gson
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import retrofit2.http.Body
 import retrofit2.http.HeaderMap
 import java.io.IOException
@@ -30,13 +31,28 @@ object LocalDataSource : ILocalDataSource {
 
                doAsync {
                    // Put the student in database
-             array = mCityDao?.loadAllUsers()!!
+                 array = mCityDao?.loadAllUsers()!!
+                   if (null!= array && array?.size!!>0){
+                       cityList = ResponseMaper.getVistedCityList(array!!)
+                       val comparator = CityComparator()
+                      // cityList.sortWith(comparator)
+                   }
+                   uiThread {
+                       callback.onDataLoaded(cityList)
+            }
+
 
         }
 
-        if (null!= array && array?.size!!>0){
-            cityList = ResponseMaper.getVistedCityList(array!!)
+
+    }
+
+    // A comparator to compare last names of Name
+    class CityComparator: Comparator<City>{
+        override fun compare(o1: City?, o2: City?): Int {
+            if(o1 == null || o2 == null)
+                return 0
+            return -o1.timeStamp.compareTo(o2.timeStamp)
         }
-        callback.onDataLoaded(cityList)
     }
 }
