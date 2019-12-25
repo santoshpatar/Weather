@@ -45,7 +45,9 @@ class WeatherViewModel :ViewModel(){
         doAsync {
             var _city = cityDao.findCityByLatitude(city.latitude,city.longitude)
             if(_city!= null){
-                cityDao.updateCity(DbUtils.getCityTableItemFromCity(city))
+                city.timeStamp = System.currentTimeMillis()
+                cityDao.updateCitybyLatLong(_city.latitude,_city.longitude,System.currentTimeMillis())
+                //cityDao.updateCity(DbUtils.getCityTableItemFromCity(city))
             }else{
                 cityDao.insert(DbUtils.getCityTableItemFromCity(city))
             }

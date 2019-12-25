@@ -14,16 +14,14 @@ interface  CityDao{
     @Delete
     fun delete(ciyitem: CityTable)
 
+    @Query("UPDATE city_item SET timeStamp= :time WHERE  latitude = :lat AND longitude = :longi")
+    fun updateCitybyLatLong(lat: String,longi:String,time:Long)
+
     @Update
     fun updateCity(vararg cityitem: CityTable)
 
-//    @Query("SELECT * FROM city_item")
-//    fun getAll(): List<CityTable>
 
     @Query("SELECT * FROM city_item ORDER BY timeStamp DESC")
     fun loadAllUsers(): Array<CityTable>
     
-
-//    @Insert
-//    fun insertAll(citylist: List<CityTable>)
 }

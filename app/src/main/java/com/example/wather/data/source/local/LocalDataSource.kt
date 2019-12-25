@@ -28,13 +28,11 @@ object LocalDataSource : ILocalDataSource {
         var cityList:ArrayList<City> = ArrayList()
         var array :Array<CityTable>?= null;
          var mCityDao= mDb.cityDao()
-
                doAsync {
                    // Put the student in database
                  array = mCityDao?.loadAllUsers()!!
                    if (null!= array && array?.size!!>0){
                        cityList = ResponseMaper.getVistedCityList(array!!)
-                       val comparator = CityComparator()
                       // cityList.sortWith(comparator)
                    }
                    uiThread {

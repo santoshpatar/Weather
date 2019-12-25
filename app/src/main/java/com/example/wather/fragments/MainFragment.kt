@@ -131,6 +131,7 @@ class MainFragment : Fragment() {
         bundle.putParcelable("SELECTED_CITY", city)
         weatherFragment.arguments = bundle
         activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container, weatherFragment)?.addToBackStack(null)?.commit()
+        mCityListViewModel.reSetVisitedCity()
 
     }
 
