@@ -4,6 +4,7 @@ import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.ResultResponse
 import com.example.wather.data.source.remote.model.WeatherData
 import com.example.wather.data.source.remote.model.WeatherResponse
+import com.example.wather.room.CityTable
 
 class ResponseMaper {
 
@@ -48,6 +49,22 @@ class ResponseMaper {
 
             return waterData
         }
+
+        public fun getVistedCityList(array :Array<CityTable>): ArrayList<City> {
+            val cityList = java.util.ArrayList<City>()
+            for (items in array){
+                val cityResponse = City()
+                cityResponse.areaName = items?.areaName
+                cityResponse.country = items?.country
+                cityResponse.region = items?.region
+                cityResponse.latitude = items?.latitude
+                cityResponse.longitude = items.longitude
+                //cityResponse.population = item.p
+                cityList.add(cityResponse)
+            }
+            return cityList
+        }
+
 
 
 

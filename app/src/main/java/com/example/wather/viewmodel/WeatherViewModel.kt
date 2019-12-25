@@ -10,9 +10,10 @@ import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.ResultResponse
 import com.example.wather.data.source.remote.model.ResultsItem
 import com.example.wather.data.source.remote.model.WeatherData
-import com.example.wather.room.AppDatabase
 import com.example.wather.room.CityDao
 import com.example.wather.room.DbUtils
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.util.HashMap
 
 class WeatherViewModel :ViewModel(){
@@ -41,7 +42,10 @@ class WeatherViewModel :ViewModel(){
     }
 
     fun insertCity(cityDao: CityDao,city: City){
+        doAsync {
         cityDao.insert(DbUtils.getCityTableItemFromCity(city))
+        }
+
     }
 
 }

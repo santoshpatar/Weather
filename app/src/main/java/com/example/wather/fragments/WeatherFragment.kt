@@ -15,10 +15,13 @@ import com.example.wather.data.source.remote.model.WeatherData
 import com.example.wather.databinding.FragmentWeatherBinding
 import com.example.wather.room.AppDatabase
 import com.example.wather.room.CityDao
+import com.example.wather.room.DbUtils
 import com.example.wather.utils.AppConstant
 import com.example.wather.viewmodel.CitySearchFragmentViewModel
 import com.example.wather.viewmodel.WeatherViewModel
 import com.squareup.picasso.Picasso
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 class WeatherFragment :Fragment(){
 
@@ -42,10 +45,7 @@ class WeatherFragment :Fragment(){
 
         var city:City = arguments!!.getParcelable("SELECTED_CITY")
         mWeatherViewModel.getWeatherData(getWeatherRequest(city))
-        mDb = AppDatabase.getAppDataBase(context!!)
-//        mDb = context?.let {
-//            AppDatabase.getAppDataBase(it)
-//        }
+        mDb = AppDatabase.getInstance(context!!)
         mCityDao = mDb?.cityDao()
         mWeatherViewModel.insertCity(mCityDao!!,city)
         return fragmentWeatherBinding.root
@@ -81,6 +81,13 @@ class WeatherFragment :Fragment(){
         request.put("tp", "2")
         request.put("key", AppConstant.Key)
         return request
+    }
+
+    fun insertCity(cityDao: CityDao,city: City){
+        doAsync {
+            cityDao.insert(DbUtils.getCityTableItemFromCity(city))
+        }
+
     }
 
 

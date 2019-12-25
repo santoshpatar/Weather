@@ -20,6 +20,8 @@ import com.example.wather.room.CityDao
 import com.example.wather.room.CityTable
 import com.example.wather.utils.AppConstant
 import com.example.wather.utils.ResponseMaper
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 
 class MainFragment : Fragment() {
@@ -61,10 +63,20 @@ class MainFragment : Fragment() {
 
 
 
-        mDb = AppDatabase.getAppDataBase(context!!)
-        mCityDao = mDb?.cityDao()
-        var cityTableItem = mCityDao?.getAll()
-        Log.d("abc","aaaaa"+cityTableItem)
+        mDb = AppDatabase.getInstance(context!!)
+        mCityListViewModel.getVisitedCity(mDb!!)
+//        mCityDao = mDb?.cityDao()
+//
+//        doAsync {
+//            // Put the student in database
+//            var array :Array<CityTable> = mCityDao?.loadAllUsers()!!
+//
+//            uiThread {
+//                Log.d("abc","aaaaa"+array)
+//            }
+//        }
+
+
         return fragmentmainBinding.root
     }
 
@@ -100,7 +112,5 @@ class MainFragment : Fragment() {
         activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container, citySearchFragment)?.addToBackStack(null)?.commit()
         mCityListViewModel.setSearchResult()
     }
-
-   // http://api.worldweatheronline.com/premium/v1/search.ashx?query=London&num_of_results=3&format=json&key=da126472a89645ed96c125449192012
 
 }

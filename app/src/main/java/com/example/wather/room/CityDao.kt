@@ -5,9 +5,6 @@ import androidx.room.*
 @Dao
 interface  CityDao{
 
-    @Query("SELECT * FROM city_item")
-    fun getAll(): List<CityTable>
-
     @Query("SELECT * FROM city_item WHERE latitude = :lat AND longitude = :longi")
     fun findCityByLatitude(lat: String,longi:String): CityTable
 
@@ -19,4 +16,13 @@ interface  CityDao{
 
     @Update
     fun updateCity(vararg cityitem: CityTable)
+
+//    @Query("SELECT * FROM city_item")
+//    fun getAll(): List<CityTable>
+
+    @Query("SELECT * FROM city_item")
+    fun loadAllUsers(): Array<CityTable>
+
+//    @Insert
+//    fun insertAll(citylist: List<CityTable>)
 }

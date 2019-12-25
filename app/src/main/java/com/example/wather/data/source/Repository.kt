@@ -1,11 +1,13 @@
 package com.example.wather.data.source
 
 
+import android.content.Context
 import com.example.wather.data.source.remote.RemoteDataSource
 import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.ResultResponse
 import com.example.wather.data.source.remote.model.WeatherData
 import com.example.wather.data.source.remote.model.WeatherResponse
+import com.example.wather.room.AppDatabase
 import com.primefocus.mobile.contentlive.data.source.local.LocalDataSource
 
 object Repository : IRepository {
@@ -55,8 +57,10 @@ object Repository : IRepository {
 
    // get data from Local DB
 
-    override fun getVisitedCity(callback: IDataSource.LoadDataCallback<ArrayList<City>>) {
-        localDataSource?.getVisitedCity(
+
+
+    override fun getVisitedCity(mDb: AppDatabase, callback: IDataSource.LoadDataCallback<ArrayList<City>>) {
+        localDataSource?.getVisitedCity(mDb,
             object : IDataSource.LoadDataCallback<ArrayList<City>> {
 
                 override fun onDataLoaded(data: ArrayList<City>) {

@@ -1,9 +1,11 @@
 package com.example.wather.data.source
 
+import android.content.Context
 import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.ResultResponse
 import com.example.wather.data.source.remote.model.WeatherData
 import com.example.wather.data.source.remote.model.WeatherResponse
+import com.example.wather.room.AppDatabase
 
 interface IRepository {
 
@@ -13,6 +15,6 @@ interface IRepository {
     fun getWeatherResult( request: HashMap<String, String>,
                          callback: IDataSource.LoadDataCallback<WeatherData>)
 
-    fun getVisitedCity(callback: IDataSource.LoadDataCallback<ArrayList<City>>)
+    fun getVisitedCity(mDb: AppDatabase, callback: IDataSource.LoadDataCallback<ArrayList<City>>)
 
 }
