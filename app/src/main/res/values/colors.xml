@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="yellow_highlight_text_color">#cd7c23</color>
+    <color name="yellow_highlight_light_color">#C1CD7C23</color>
+    <color name="yellow_highlight_transparent_color">#4DD89032</color>
 </resources>

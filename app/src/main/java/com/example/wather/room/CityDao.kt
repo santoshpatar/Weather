@@ -21,7 +21,7 @@ interface  CityDao{
     fun updateCity(vararg cityitem: CityTable)
 
 
-    @Query("SELECT * FROM city_item ORDER BY timeStamp DESC")
-    fun loadAllUsers(): Array<CityTable>
+    @Query("SELECT * FROM city_item ORDER BY timeStamp DESC limit 10")
+    fun loadAllCity(): Array<CityTable>
     
 }

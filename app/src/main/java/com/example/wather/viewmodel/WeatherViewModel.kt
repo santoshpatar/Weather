@@ -3,17 +3,13 @@ package com.example.wather.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.wather.Adapter.MusicListAdapter
 import com.example.wather.data.source.IDataSource
 import com.example.wather.data.source.Repository
 import com.example.wather.data.source.remote.model.City
-import com.example.wather.data.source.remote.model.ResultResponse
-import com.example.wather.data.source.remote.model.ResultsItem
 import com.example.wather.data.source.remote.model.WeatherData
 import com.example.wather.room.CityDao
 import com.example.wather.room.DbUtils
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.util.HashMap
 
 class WeatherViewModel :ViewModel(){

@@ -7,7 +7,6 @@ import com.example.wather.data.source.remote.model.ResultResponse
 import com.example.wather.data.source.remote.model.WeatherData
 import com.example.wather.data.source.remote.model.WeatherResponse
 import com.example.wather.utils.ResponseMaper
-import com.example.wather.utils.Utils
 import com.google.gson.Gson
 
 

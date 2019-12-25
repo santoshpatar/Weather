@@ -4,12 +4,10 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.wather.Adapter.CityListAdapter
-import com.example.wather.Adapter.MusicListAdapter
 import com.example.wather.data.source.IDataSource
 import com.example.wather.data.source.Repository
 import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.ResultResponse
-import com.example.wather.data.source.remote.model.ResultsItem
 import com.example.wather.room.AppDatabase
 import java.util.HashMap
 
