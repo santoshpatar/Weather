@@ -1,14 +1,11 @@
 package com.example.wather.Adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wather.R
 import com.example.wather.data.source.remote.model.City
-import com.example.wather.data.source.remote.model.ResultsItem
 
 import com.example.wather.databinding.RowItemCityBinding
 import java.util.ArrayList

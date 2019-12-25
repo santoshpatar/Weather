@@ -5,7 +5,6 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.wather.data.source.remote.model.City
-import com.example.wather.data.source.remote.model.ResultsItem
 import com.squareup.picasso.Picasso
 
 class RowItemCityListViewModel : ViewModel(){
