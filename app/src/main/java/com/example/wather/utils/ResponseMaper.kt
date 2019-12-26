@@ -4,7 +4,7 @@ import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.ResultResponse
 import com.example.wather.data.source.remote.model.WeatherData
 import com.example.wather.data.source.remote.model.WeatherResponse
-import com.example.wather.room.CityTable
+import com.example.wather.room.entity.CityTable
 
 class ResponseMaper {
 

@@ -2,10 +2,11 @@ package com.example.wather.room
 
 import android.content.Context
 import androidx.room.RoomDatabase
-import android.icu.lang.UCharacter.GraphemeClusterBreak.V
 import androidx.room.Database
 import androidx.room.Room
-import androidx.room.TypeConverters
+import com.example.wather.room.dao.CityDao
+import com.example.wather.room.entity.CityTable
+
 @Database(entities = [(CityTable::class)], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 

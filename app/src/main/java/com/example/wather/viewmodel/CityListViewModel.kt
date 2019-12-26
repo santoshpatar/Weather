@@ -13,6 +13,9 @@ import com.example.wather.utils.AppConstant
 import com.example.wather.utils.AppUtils
 import java.util.HashMap
 
+/**
+ *  This class is view model for Main/Visited city fragment
+ */
 class CityListViewModel :ViewModel(),CityListAdapter.ItemClickListener{
 
     private var mSearchResult = MutableLiveData<ResultResponse>()
@@ -25,6 +28,11 @@ class CityListViewModel :ViewModel(),CityListAdapter.ItemClickListener{
         cityListAdapter.updateCityList(cityList)
     }
 
+    /**
+     * to get list of city as per query text
+     * @param requestBody : search parameter
+     *
+     */
     fun getSearchData(requestBody: HashMap<String, String>){
         Repository.getSearchResult(requestBody, object : IDataSource
         .LoadDataCallback<ResultResponse> {
@@ -42,6 +50,11 @@ class CityListViewModel :ViewModel(),CityListAdapter.ItemClickListener{
         })
     }
 
+    /**
+     * to get visited city from local data base
+     * @param mDb : database object
+     *
+     */
     fun getVisitedCity(mDb: AppDatabase){
         Repository.getVisitedCity(mDb, object : IDataSource
         .LoadDataCallback<ArrayList<City>> {

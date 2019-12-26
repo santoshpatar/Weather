@@ -4,7 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.wather.Adapter.CityListAdapter
 import com.example.wather.data.source.remote.model.City
-
+/**
+ *  This class is view model Search result fragment
+ */
 class CitySearchFragmentViewModel : ViewModel(),CityListAdapter.ItemClickListener{
 
     var cityListAdapter = CityListAdapter(this)

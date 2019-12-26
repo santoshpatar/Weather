@@ -1,6 +1,10 @@
 package com.example.wather.data.source.remote.model
 
 import com.google.gson.annotations.SerializedName
+/**
+ * this class to hold search result response
+ *
+ */
 data class ResultResponse(
     val search_api: SearchApi
 )

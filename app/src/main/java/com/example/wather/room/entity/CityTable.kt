@@ -1,4 +1,4 @@
-package com.example.wather.room
+package com.example.wather.room.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

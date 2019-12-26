@@ -2,7 +2,6 @@ package com.example.abc.ui.main
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,18 +17,15 @@ import com.example.wather.data.source.remote.model.ResultResponse
 import com.example.wather.fragments.CitySearchFragment
 import com.example.wather.fragments.WeatherFragment
 import com.example.wather.room.AppDatabase
-import com.example.wather.room.CityDao
-import com.example.wather.room.CityTable
-import com.example.wather.utils.AppConstant
 import com.example.wather.utils.AppUtils
 import com.example.wather.utils.ResponseMaper
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 
-
+/**
+ * this is main fragment, which is hold  visited city list recycle view and Search bar
+ */
 class MainFragment : Fragment() {
     private var mDb: AppDatabase? = null
-    private  var mCitySearchFragment:CitySearchFragment?= null
+    private var mCitySearchFragment: CitySearchFragment? = null
 
     companion object {
         fun newInstance() = MainFragment()
@@ -60,7 +56,11 @@ class MainFragment : Fragment() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if (fragmentmainBinding.searchView.query.isNotEmpty()) {
                     AppUtils.showProgressDialog(context, "Loading...", false)
-                    mCityListViewModel.getSearchData(mCityListViewModel.getSearchRequest(fragmentmainBinding.searchView.query.toString()))
+                    mCityListViewModel.getSearchData(
+                        mCityListViewModel.getSearchRequest(
+                            fragmentmainBinding.searchView.query.toString()
+                        )
+                    )
                 }
                 return false
             }
@@ -75,8 +75,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
 
         mCityListViewModel.getSearchResult().observe(this, Observer {
             AppUtils.hideProgressDialog()
@@ -105,23 +103,28 @@ class MainFragment : Fragment() {
 
     }
 
-
-
-
-        private fun openSearchResultFragment(result: ResultResponse) {
-            if(null== mCitySearchFragment) {
-                mCitySearchFragment = CitySearchFragment()
-                var bundle = Bundle()
-                bundle.putParcelableArrayList("SEARCH_RESULT", ResponseMaper.getCityList(result))
-                mCitySearchFragment?.arguments = bundle
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container, mCitySearchFragment!!)?.addToBackStack(null)?.commit()
-                mCityListViewModel.setSearchResult()
-            }
+    /**
+     * this method to open SearchResultFragment
+     * @param result : city serach response
+     *
+     */
+    private fun openSearchResultFragment(result: ResultResponse) {
+        if (null == mCitySearchFragment) {
+            mCitySearchFragment = CitySearchFragment()
+            var bundle = Bundle()
+            bundle.putParcelableArrayList("SEARCH_RESULT", ResponseMaper.getCityList(result))
+            mCitySearchFragment?.arguments = bundle
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.container, mCitySearchFragment!!)?.addToBackStack(null)?.commit()
+            mCityListViewModel.setSearchResult()
+        }
     }
 
-
-
+    /**
+     * this method to open Weather Fragment as per user selected city
+     * @param city : user selected city form Visited city list
+     *
+     */
     private fun openWeatherFragment(city: City) {
         fragmentManager?.popBackStack();
         var weatherFragment = WeatherFragment()

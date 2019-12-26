@@ -7,7 +7,7 @@ import com.example.wather.data.source.IDataSource
 import com.example.wather.data.source.Repository
 import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.WeatherData
-import com.example.wather.room.CityDao
+import com.example.wather.room.dao.CityDao
 import com.example.wather.room.DbUtils
 import com.example.wather.utils.AppUtils
 import org.jetbrains.anko.doAsync
@@ -49,7 +49,7 @@ class WeatherViewModel :ViewModel(){
      * @param city  selected city data from city list
      */
 
-    fun insertCity(cityDao: CityDao,city: City){
+    fun insertCity(cityDao: CityDao, city: City){
         doAsync {
             var _city = cityDao.findCityByLatitude(city.latitude,city.longitude)
             if(_city!= null){

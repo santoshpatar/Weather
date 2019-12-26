@@ -17,11 +17,10 @@ import com.example.wather.utils.ResponseMaper
 import com.example.wather.viewmodel.CitySearchFragmentViewModel
 
 /**
+ * This Fragment to show city search result
  * santosh patar
  */
 class CitySearchFragment :Fragment(){
-
-   // private lateinit var citySearchBinding: com.example.musictest.databinding.FragmentCitySearchBinding
    private lateinit var citySearchBinding: com.example.wather.databinding.FragmentCitySearchBinding
     private lateinit var mCitySearchFragmentViewModel: CitySearchFragmentViewModel
 
@@ -51,6 +50,11 @@ class CitySearchFragment :Fragment(){
 
     }
 
+    /**
+     * this method to open Weather Fragment as per user selected city
+     * @param city : user selected city form Visited city list
+     *
+     */
     private fun openWeatherFragment(city: City){
         fragmentManager?.popBackStack();
         var weatherFragment = WeatherFragment()

@@ -7,12 +7,11 @@ import androidx.lifecycle.ViewModel
 import com.example.wather.data.source.remote.model.City
 import com.squareup.picasso.Picasso
 
-class RowItemCityListViewModel : ViewModel(){
+class RowItemCityListViewModel : ViewModel() {
 
     private val mAreaName = MutableLiveData<String>()
     private val mRegion = MutableLiveData<String>()
     private val mWeatherUrl = MutableLiveData<String>()
-
 
 
     fun bind(city: City) {
@@ -25,7 +24,6 @@ class RowItemCityListViewModel : ViewModel(){
     fun getAreaName() = mAreaName
     fun getRegion() = mRegion
     fun getCityWeatherUrl() = mWeatherUrl
-
 
 
     companion object {

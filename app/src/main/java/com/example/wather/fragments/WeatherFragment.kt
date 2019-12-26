@@ -1,7 +1,6 @@
 package com.example.wather.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,15 +13,11 @@ import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.WeatherData
 import com.example.wather.databinding.FragmentWeatherBinding
 import com.example.wather.room.AppDatabase
-import com.example.wather.room.CityDao
-import com.example.wather.room.DbUtils
+import com.example.wather.room.dao.CityDao
 import com.example.wather.utils.AppConstant
 import com.example.wather.utils.AppUtils
-import com.example.wather.viewmodel.CitySearchFragmentViewModel
 import com.example.wather.viewmodel.WeatherViewModel
 import com.squareup.picasso.Picasso
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 
 /**
  * class is to display weather of selected city

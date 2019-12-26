@@ -4,6 +4,10 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
 
+/**
+ * this class is for to hold city list item
+ * santosh
+ */
 
 class  City() : Parcelable {
     var areaName: String = "NA"

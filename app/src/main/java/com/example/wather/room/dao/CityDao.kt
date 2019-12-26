@@ -1,6 +1,7 @@
-package com.example.wather.room
+package com.example.wather.room.dao
 
 import androidx.room.*
+import com.example.wather.room.entity.CityTable
 
 @Dao
 interface  CityDao{

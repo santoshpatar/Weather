@@ -3,7 +3,7 @@ package com.primefocus.mobile.contentlive.data.source.local
 import com.example.wather.data.source.IDataSource
 import com.example.wather.data.source.remote.model.City
 import com.example.wather.room.AppDatabase
-import com.example.wather.room.CityTable
+import com.example.wather.room.entity.CityTable
 import com.example.wather.utils.ResponseMaper
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
