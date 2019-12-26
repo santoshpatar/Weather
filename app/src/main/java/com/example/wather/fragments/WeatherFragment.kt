@@ -17,20 +17,22 @@ import com.example.wather.room.AppDatabase
 import com.example.wather.room.CityDao
 import com.example.wather.room.DbUtils
 import com.example.wather.utils.AppConstant
+import com.example.wather.utils.AppUtils
 import com.example.wather.viewmodel.CitySearchFragmentViewModel
 import com.example.wather.viewmodel.WeatherViewModel
 import com.squareup.picasso.Picasso
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
-class WeatherFragment :Fragment(){
-
-    // private lateinit var citySearchBinding: com.example.musictest.databinding.FragmentCitySearchBinding
+/**
+ * class is to display weather of selected city
+ *  santosh
+ */
+class WeatherFragment : Fragment() {
     private lateinit var fragmentWeatherBinding: FragmentWeatherBinding;
     private lateinit var mWeatherViewModel: WeatherViewModel
     private var mDb: AppDatabase? = null
-    private var mCityDao: CityDao ? = null
-    private var mCity: City ? = null
+    private var mCityDao: CityDao? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,11 +45,11 @@ class WeatherFragment :Fragment(){
         )
         fragmentWeatherBinding.watherviewmodel = mWeatherViewModel
 
-        var city:City = arguments!!.getParcelable("SELECTED_CITY")
+        var city: City = arguments!!.getParcelable("SELECTED_CITY")
         mWeatherViewModel.getWeatherData(getWeatherRequest(city))
         mDb = AppDatabase.getInstance(context!!)
         mCityDao = mDb?.cityDao()
-        mWeatherViewModel.insertCity(mCityDao!!,city)
+        mWeatherViewModel.insertCity(mCityDao!!, city)
         return fragmentWeatherBinding.root
     }
 
@@ -56,13 +58,21 @@ class WeatherFragment :Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         mWeatherViewModel.getWeatherResult().observe(this, Observer {
-            bindWeatherData(it)
-            //mWeatherViewModel.resetResult()
+            AppUtils.hideProgressDialog()
+            it.let {
+                bindWeatherData(it)
+            }
+
         })
 
     }
 
-    private fun bindWeatherData(weatherData: WeatherData){
+    /**
+     * to bind data
+     * @param weatherData  weather  data
+     *
+     */
+    private fun bindWeatherData(weatherData: WeatherData) {
         Picasso.get().load(weatherData.weatherImage).into(fragmentWeatherBinding.fragmentWeatherImg)
         fragmentWeatherBinding.weatherDesc.setText(weatherData.weather)
         fragmentWeatherBinding.temperature.setText(weatherData.temperature)
@@ -70,28 +80,20 @@ class WeatherFragment :Fragment(){
     }
 
     /**
-     *  Weather data API request
+     * Returns an Weather api request bject
+     * @param city   selected city for city list
      *
      */
-    private fun getWeatherRequest(city:City ): HashMap<String, String> {
+    private fun getWeatherRequest(city: City): HashMap<String, String> {
+        AppUtils.showProgressDialog(context, "", false)
         val request = java.util.HashMap<String, String>()
-        request.put("q", city.latitude+","+city.longitude)
+        request.put("q", city.latitude + "," + city.longitude)
         request.put("num_of_days", "1")
         request.put("format", "json")
         request.put("tp", "2")
         request.put("key", AppConstant.Key)
         return request
     }
-
-    fun insertCity(cityDao: CityDao,city: City){
-        doAsync {
-            cityDao.insert(DbUtils.getCityTableItemFromCity(city))
-        }
-
-    }
-
-
-
 
 
 }

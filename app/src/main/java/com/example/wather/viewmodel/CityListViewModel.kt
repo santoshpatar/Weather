@@ -9,6 +9,8 @@ import com.example.wather.data.source.Repository
 import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.ResultResponse
 import com.example.wather.room.AppDatabase
+import com.example.wather.utils.AppConstant
+import com.example.wather.utils.AppUtils
 import java.util.HashMap
 
 class CityListViewModel :ViewModel(),CityListAdapter.ItemClickListener{
@@ -27,11 +29,13 @@ class CityListViewModel :ViewModel(),CityListAdapter.ItemClickListener{
         Repository.getSearchResult(requestBody, object : IDataSource
         .LoadDataCallback<ResultResponse> {
             override fun onDataLoaded(data: ResultResponse) {
+                AppUtils.hideProgressDialog()
                 mSearchResult.value  = data
                 Log.d("response",data.toString())
             }
 
             override fun onDataNotAvailable(t: Throwable) {
+                AppUtils.hideProgressDialog()
                 Log.d("response","fails")
 
             }
@@ -50,6 +54,21 @@ class CityListViewModel :ViewModel(),CityListAdapter.ItemClickListener{
 
             }
         })
+    }
+
+    /**
+     * This methods Returns an object for  Search api
+     * @param searchText   searchText enter by user on search box
+     *
+     */
+     fun getSearchRequest(searchText: String): HashMap<String, String> {
+        val request = java.util.HashMap<String, String>()
+        request.put("query", searchText)
+        request.put("num_of_results", "5")
+        request.put("format", "json")
+        request.put("num_of_results", "5")
+        request.put("key", AppConstant.Key)
+        return request
     }
 
 

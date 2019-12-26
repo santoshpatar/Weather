@@ -9,9 +9,14 @@ import com.example.wather.data.source.remote.model.City
 import com.example.wather.data.source.remote.model.WeatherData
 import com.example.wather.room.CityDao
 import com.example.wather.room.DbUtils
+import com.example.wather.utils.AppUtils
 import org.jetbrains.anko.doAsync
 import java.util.HashMap
 
+/**
+ * this class is view model for Weather View
+ * santosh
+ */
 class WeatherViewModel :ViewModel(){
 
     private var mWeatherResult = MutableLiveData<WeatherData>()
@@ -25,6 +30,7 @@ class WeatherViewModel :ViewModel(){
             }
 
             override fun onDataNotAvailable(t: Throwable) {
+                AppUtils.hideProgressDialog()
                 Log.d("response","fails")
 
             }
@@ -36,6 +42,12 @@ class WeatherViewModel :ViewModel(){
     fun resetResult() {
         mWeatherResult = MutableLiveData<WeatherData>()
     }
+
+    /**
+     *  this method to insert or update city to local db
+     * @param cityDao  dao object for city_item table
+     * @param city  selected city data from city list
+     */
 
     fun insertCity(cityDao: CityDao,city: City){
         doAsync {

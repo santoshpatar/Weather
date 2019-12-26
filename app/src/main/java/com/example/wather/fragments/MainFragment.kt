@@ -28,8 +28,8 @@ import org.jetbrains.anko.uiThread
 
 
 class MainFragment : Fragment() {
-    private var mCityDao: CityDao? = null
     private var mDb: AppDatabase? = null
+    private  var mCitySearchFragment:CitySearchFragment?= null
 
     companion object {
         fun newInstance() = MainFragment()
@@ -50,21 +50,21 @@ class MainFragment : Fragment() {
         )
         fragmentmainBinding.listviewmodel = mCityListViewModel
         fragmentmainBinding.recyclerView.adapter = mCityListViewModel.cityListAdapter
-
-        fragmentmainBinding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        mCitySearchFragment = null
+        fragmentmainBinding.searchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
+
             override fun onQueryTextSubmit(query: String): Boolean {
-                if ( fragmentmainBinding.searchView.query.isNotEmpty()) {
-                    AppUtils.showProgressDialog(context,"Loading...",false)
-                    mCityListViewModel.getSearchData(getSearchRequest(fragmentmainBinding.searchView.query.toString()))
+                if (fragmentmainBinding.searchView.query.isNotEmpty()) {
+                    AppUtils.showProgressDialog(context, "Loading...", false)
+                    mCityListViewModel.getSearchData(mCityListViewModel.getSearchRequest(fragmentmainBinding.searchView.query.toString()))
                 }
                 return false
             }
         })
-
-
 
         mDb = AppDatabase.getInstance(context!!)
         mCityListViewModel.getVisitedCity(mDb!!)
@@ -76,23 +76,29 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         mCityListViewModel.getSearchResult().observe(this, Observer {
             AppUtils.hideProgressDialog()
-            if(null!=it && null!=it.search_api) {
+            if (null != it && null != it.search_api) {
                 openSearchResultFragment(it)
-            }else{
-                Toast.makeText(context,"City not found, please change your query",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    context,
+                    "City not found, please change your query",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
 
         mCityListViewModel.getVisitedCityResult().observe(this, Observer {
-            if(it!= null){
+            if (it != null) {
                 mCityListViewModel.loadVisitedCity(it)
             }
         })
 
         mCityListViewModel.getClickCity().observe(this, Observer {
-            if(it!=null) {
+            if (it != null) {
                 openWeatherFragment(it)
             }
         })
@@ -100,35 +106,30 @@ class MainFragment : Fragment() {
     }
 
 
-    /**
-     *  to get search query request
-     */
-    private fun getSearchRequest(searchText: String): HashMap<String, String> {
-        val request = java.util.HashMap<String, String>()
-        request.put("query", searchText)
-        request.put("num_of_results", "5")
-        request.put("format", "json")
-        request.put("num_of_results", "5")
-        request.put("key", AppConstant.Key)
-        return request
+
+
+        private fun openSearchResultFragment(result: ResultResponse) {
+            if(null== mCitySearchFragment) {
+                mCitySearchFragment = CitySearchFragment()
+                var bundle = Bundle()
+                bundle.putParcelableArrayList("SEARCH_RESULT", ResponseMaper.getCityList(result))
+                mCitySearchFragment?.arguments = bundle
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.container, mCitySearchFragment!!)?.addToBackStack(null)?.commit()
+                mCityListViewModel.setSearchResult()
+            }
     }
 
-    private fun openSearchResultFragment(result: ResultResponse){
-      var citySearchFragment = CitySearchFragment()
-        var bundle = Bundle()
-        bundle.putParcelableArrayList("SEARCH_RESULT",ResponseMaper.getCityList(result))
-        citySearchFragment.arguments = bundle
-        activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container, citySearchFragment)?.addToBackStack(null)?.commit()
-        mCityListViewModel.setSearchResult()
-    }
 
-    private fun openWeatherFragment(city: City){
+
+    private fun openWeatherFragment(city: City) {
         fragmentManager?.popBackStack();
         var weatherFragment = WeatherFragment()
         var bundle = Bundle()
         bundle.putParcelable("SELECTED_CITY", city)
         weatherFragment.arguments = bundle
-        activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container, weatherFragment)?.addToBackStack(null)?.commit()
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.container, weatherFragment)?.addToBackStack(null)?.commit()
         mCityListViewModel.reSetVisitedCity()
 
     }
