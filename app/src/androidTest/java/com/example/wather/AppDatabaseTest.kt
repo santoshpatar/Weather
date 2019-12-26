@@ -1,11 +1,15 @@
 package com.example.wather
 
+import androidx.room.ColumnInfo
+import androidx.room.PrimaryKey
 import androidx.room.Room
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.example.wather.room.AppDatabase
 import com.example.wather.room.dao.CityDao
+import com.example.wather.room.entity.CityTable
 import org.junit.After
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,5 +33,13 @@ class AppDatabaseTest {
     fun closeDB() {
         db!!.close()
     }
+
+ 
+
+    @Test
+    fun CityDaoIsNOtNull() {
+        Assert.assertNotNull(cityDao)
+    }
+
 
 }
