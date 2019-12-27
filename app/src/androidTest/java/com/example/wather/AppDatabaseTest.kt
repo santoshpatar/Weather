@@ -34,12 +34,32 @@ class AppDatabaseTest {
         db!!.close()
     }
 
- 
 
     @Test
-    fun CityDaoIsNOtNull() {
-        Assert.assertNotNull(cityDao)
+    @Throws(Exception::class)
+    fun insertCityTest(){
+        var city = CityTable()
+        city.areaName  = "TestArea";
+        city.region = "TestRegion"
+        city.country = "TestCountry"
+        city.latitude = "122"
+        city.longitude = "333"
+        city.weatherUrl = ""
+        city.timeStamp = 111111;
+        cityDao?.insert(city)
+        Assert.assertEquals(cityDao?.loadAllCity()?.size, 1)
+        Assert.assertNotEquals(cityDao?.loadAllCity()?.size, 0)
+
     }
+
+    @Test
+    fun checkEmptyDB() {
+        val cityList = cityDao?.loadAllCity()
+        Assert.assertEquals(cityList?.size, 0)
+        Assert.assertNotEquals(cityList?.size, 1)
+    }
+
+    
 
 
 }
