@@ -7,7 +7,7 @@
 
         <variable
             name="listviewmodel"
-            type="com.example.wather.viewmodel.CityListViewModel" />
+            type="com.example.weather.viewmodel.CityListViewModel" />
     </data>
 
 

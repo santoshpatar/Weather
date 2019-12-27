@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.wather">
+          package="com.example.weather">
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -11,7 +11,7 @@
             android:supportsRtl="true"
            android:usesCleartextTraffic="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.example.wather.Activity.MainActivity">
+        <activity android:name="com.example.weather.Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

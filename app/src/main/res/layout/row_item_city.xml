@@ -8,7 +8,7 @@
 
         <variable
             name="rowitem"
-            type="com.example.wather.viewmodel.RowItemCityListViewModel" />
+            type="com.example.weather.viewmodel.RowItemCityListViewModel" />
     </data>
 
     <RelativeLayout
